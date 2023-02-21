@@ -1,13 +1,22 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-public class ApiController{
-	private String favColor="Violet";
-	@GetMapping("/display")
-	public String getMyFav() {
-		return "My Favourite Color is "+favColor;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+
+@Controller
+public class ApiController
+{
+	@RequestMapping("/show")
+	public String getMyFav(HttpServletRequest req)
+	{
+		String colourname=req.getParameter("name");
+		HttpSession session=req.getSession();
+		session.setAttribute("displayColor", colourname);
+		return "NewFile.jsp";
 	}
+
 }
